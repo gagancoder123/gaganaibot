@@ -1,5 +1,26 @@
 import { getAIResponse } from '../../../aiService.js';
 
+// Helper to read and parse JSON body for Vercel Node functions
+async function parseJsonBody(req) {
+  if (req.body && typeof req.body === 'object') {
+    return req.body;
+  }
+  return new Promise((resolve, reject) => {
+    let data = '';
+    req.on('data', chunk => { data += chunk; });
+    req.on('end', () => {
+      try {
+        if (!data) return resolve({});
+        const parsed = JSON.parse(data);
+        resolve(parsed);
+      } catch (e) {
+        reject(e);
+      }
+    });
+    req.on('error', reject);
+  });
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', ['POST']);
@@ -7,7 +28,8 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { message, userName } = req.body || {};
+    const body = await parseJsonBody(req);
+    const { message, userName } = body || {};
 
     if (!message || typeof message !== 'string') {
       return res.status(400).json({ error: 'Message is required' });
@@ -22,6 +44,9 @@ export default async function handler(req, res) {
     });
   } catch (error) {
     console.error('Error in /api/chat/send:', error);
-    return res.status(500).json({ error: 'Failed to generate reply' });
+    // Gracefully return a fallback message to avoid UI errors
+    return res.status(200).json({
+      aiMessage: { text: "Sorry yaar, thoda issue aa gaya server pe. Thodi der baad try karna! 🙈" }
+    });
   }
 }
