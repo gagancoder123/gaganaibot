@@ -1,21 +1,21 @@
-# 🤖 WhatsApp AI Bot - Your Personal Auto-Responder
+# 💬 AI Chat Web Application - Chat with Gagan Kumar's AI Assistant
 
-An AI-powered WhatsApp bot that responds like YOU when you're unavailable. The bot uses OpenAI to learn your personality, communication style, and preferences to generate authentic responses.
+An AI-powered web chat application that responds like Gagan Kumar using his personality, communication style, and preferences. The bot uses Cohere AI to generate authentic, friendly responses in a natural Hinglish conversational style.
 
 ## ✨ Features
 
-- 🎭 **Personality Mirroring**: Responds exactly like you based on detailed prompts
-- ⏰ **Smart Auto-Reply**: Only responds after a configurable period of inactivity
-- 💬 **Context-Aware**: Understands different relationships (friends, family, colleagues)
-- 👥 **Group Chat Support**: Can handle both individual and group conversations
-- 🔐 **Secure**: Uses local authentication for WhatsApp
-- 🎨 **Customizable**: Fully configurable personality and behavior
+- 🎭 **Personality-Based Responses**: Responds exactly like Gagan based on detailed personality prompts
+- 🌐 **Web-Based Interface**: Clean, modern chat interface accessible from any browser
+- 💬 **Context-Aware**: Understands different relationships and responds appropriately
+- 🎨 **Customizable**: Fully configurable personality and behavior in `aiService.js`
+- 🤖 **Cohere AI**: Powered by Cohere's `command-r-08-2024` model
+- 📝 **Chat History**: Maintains conversation history during the session
+- 🖼️ **Custom Background**: Beautiful chat interface with personalized background image
 
 ## 📋 Prerequisites
 
 - Node.js (v18 or higher)
-- An OpenAI API key ([Get it here](https://platform.openai.com/api-keys))
-- A WhatsApp account
+- A Cohere API key ([Get it here](https://dashboard.cohere.com/))
 
 ## 🚀 Quick Start
 
@@ -27,62 +27,47 @@ npm install
 
 ### 2. Configure Environment Variables
 
-Copy the example environment file and add your OpenAI API key:
-
-\`\`\`bash
-cp .env.example .env
-\`\`\`
-
-Edit `.env` and add your OpenAI API key:
+Edit `.env` and add your Cohere API key:
 
 \`\`\`env
-OPENAI_API_KEY=sk-your-actual-api-key-here
+COHERE_API_KEY=your-cohere-api-key-here
+COHERE_MODEL=command-r-08-2024
 \`\`\`
 
 ### 3. Customize Your Personality
 
-**This is the most important step!** Open `aiService.js` and edit the `PERSONALITY_PROMPT` section with detailed information about yourself:
+Open `aiService.js` and edit the `PERSONALITY_PROMPT` section with your information:
 
 \`\`\`javascript
-const PERSONALITY_PROMPT = \`You are responding as if you are the owner...
+const PERSONALITY_PROMPT = \`You are Gagan Kumar.
 
-**Basic Information:**
-- Name: Alex
-- Age: 25
-- Location: London, UK
-- Occupation: Software Developer
+Identity & Background:
+- Name: Gagan Kumar
+- Works as Member Technical Staff (MTS) at Oracle
+- M.Tech in Computer Science & Information Security from NIT Warangal
 
-**Personality Traits:**
-- Friendly and casual
-- Uses emojis frequently 😊
-- Prefers short messages
-- Often makes jokes
-
+Personality:
+- Funny and light-hearted: always replies in a funny, entertaining way
+- Uses Hinglish (mix of Hindi and English) naturally
+- Supportive and a little bit emotional
 // ... add MORE details about yourself!
 \`\`\`
 
-The more detailed you are, the better the bot will mimic you. Include:
-- How you greet people
-- Your common phrases and slang
-- Your interests and hobbies
-- How you respond in different situations
-- Topics you know/don't know about
-
-### 4. Start the Bot
+### 4. Start the Server
 
 \`\`\`bash
 npm start
 \`\`\`
 
-### 5. Scan QR Code
+### 5. Open in Browser
 
-A QR code will appear in your terminal. Scan it with WhatsApp (Settings → Linked Devices → Link a Device).
+Visit: **http://localhost:3000**
 
-### 6. Test It!
+### 6. Start Chatting!
 
-- Have someone message you
-- Wait for the configured delay (default: 5 minutes)
-- The bot will automatically respond in your style!
+- Enter your name
+- Type a message
+- Get AI responses that sound like Gagan!
 
 ## ⚙️ Configuration Options
 
@@ -90,116 +75,117 @@ Edit `.env` to customize behavior:
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `OPENAI_API_KEY` | Your OpenAI API key | Required |
-| `OPENAI_MODEL` | Model to use | `gpt-4-turbo-preview` |
-| `AUTO_REPLY_DELAY` | Delay before auto-reply (ms) | `300000` (5 min) |
-| `SKIP_GROUPS` | Skip group messages | `false` |
+| `COHERE_API_KEY` | Your Cohere API key | Required |
+| `COHERE_MODEL` | Model to use | `command-r-08-2024` |
+| `PORT` | Server port | `3000` |
 | `FALLBACK_MESSAGE` | Message if AI fails | Custom message |
-
-### Delay Examples:
-- 1 minute: `60000`
-- 5 minutes: `300000`
-- 10 minutes: `600000`
-- 30 minutes: `1800000`
 
 ## 🎯 How It Works
 
-1. **Message Received**: Someone messages you on WhatsApp
-2. **Activity Check**: Bot checks if you've replied recently
-3. **Delay Timer**: Waits for configured delay (default: 5 minutes)
-4. **AI Processing**: If you haven't replied, sends message to OpenAI with your personality prompt
-5. **Response**: Bot sends AI-generated response that sounds like you
-6. **Reset Timer**: When you reply, timer resets for that chat
+1. **User Input**: User enters a message in the web interface
+2. **AI Processing**: Message is sent to Cohere AI with personality context
+3. **Response Generation**: AI generates a response matching Gagan's style
+4. **Display**: Response is displayed in the chat interface
+5. **History**: Chat history is maintained for the session
 
 ## 💡 Pro Tips
 
 ### Making It Sound More Like You
 
-1. **Be Specific**: Include actual phrases you use, not generic descriptions
-   - ❌ "I'm friendly"
-   - ✅ "I always start with 'Yo!' or 'Heyy' and end with 👍"
+1. **Be Specific**: Include actual phrases and expressions you use
+   - Example: "Uses Hinglish like 'yaar', 'bhai', 'thoda sa'"
 
-2. **Add Examples**: Include real conversation examples
-   \`\`\`
-   Friend: "Wanna hang out?"
-   You: "Can't today bro, swamped with work 😅 maybe tmrw?"
-   \`\`\`
+2. **Add Details**: Include hobbies, interests, and personal traits
+   - "Loves cooking: pav bhaji, pasta, noodles, chole puri"
+   - "Goes to gym in the morning"
 
-3. **Update Regularly**: Keep your prompt updated with current situations
-   - "Currently working on a big project, super busy this week"
-   - "Preparing for exams, might be slow to respond"
+3. **Communication Style**: Specify how you communicate
+   - "Funny and entertaining, like chatting with a close friend"
+   - "Uses Hinglish naturally, not professional"
 
-4. **Different Contexts**: Specify how you talk to different people
-   - Friends: Casual, lots of slang
-   - Family: More formal, caring
-   - Colleagues: Professional but friendly
+4. **Relationships**: Describe your important relationships
+   - "Has one close school friend (doesn't reveal name)"
+   - "Two brothers: Akash and Ramji"
 
-### Testing Your Bot
+## 📁 Project Structure
 
-Before using it live, test the AI service:
-
-1. Uncomment the test code at the bottom of `aiService.js`
-2. Run: `node aiService.js`
-3. Check if responses sound like you
-4. Adjust the personality prompt as needed
+\`\`\`
+├── server.js              # Express server & API endpoints
+├── aiService.js           # Cohere AI integration & personality
+├── public/
+│   ├── index.html        # Chat interface
+│   ├── styles.css        # Styling
+│   ├── app.js            # Client-side JavaScript
+│   └── dp.webp           # Background image
+├── .env                  # Configuration (not in git)
+├── package.json          # Dependencies
+└── README.md             # This file
+\`\`\`
 
 ## 🔒 Privacy & Security
 
 - ✅ Runs locally on your machine
-- ✅ WhatsApp session stored locally
-- ✅ No data sent anywhere except OpenAI API
+- ✅ No data stored permanently (session-based history only)
+- ✅ API calls only to Cohere
 - ⚠️ Never share your `.env` file or API keys
-- ⚠️ Be mindful of what information you include in prompts
+- ⚠️ Add `.env` to `.gitignore`
 
-## 🐛 Troubleshooting
+## 🔧 Troubleshooting
 
-### QR Code Not Appearing
-- Make sure you have a stable internet connection
-- Delete `.wwebjs_auth` folder and restart
+### Server won't start
+- Check if port 3000 is available
+- Verify `.env` file exists with correct API key
+- Run `npm install` to ensure dependencies are installed
 
-### Bot Not Responding
-- Check your OpenAI API key is valid
-- Ensure you have API credits remaining
-- Check console for error messages
+### AI not responding
+- Verify COHERE_API_KEY is valid
+- Check internet connection
+- Ensure Cohere model `command-r-08-2024` is accessible
 
-### Wrong Personality
-- Edit `aiService.js` and add more specific details
-- Test responses using the test function
-- Increase temperature in API call for more variation
+### Wrong personality responses
+- Check `aiService.js` PERSONALITY_PROMPT configuration
+- Restart server after making changes
 
-### "Module not found" Errors
-- Make sure you ran `npm install`
-- Check that you're using Node.js v18+
+### Chat history not working
+- History is session-based (clears on server restart)
+- Check browser console for errors
 
-## 📊 Cost Estimation
+## 📜 Available Scripts
 
-With GPT-4 Turbo:
-- Average message: ~$0.01
-- 100 auto-replies: ~$1.00
-- 1000 auto-replies: ~$10.00
+```bash
+npm start              # Start the web server
+npm run dev           # Start with auto-reload on file changes
+npm run start:whatsapp # Start WhatsApp bot mode (optional)
+npm run dev:whatsapp  # WhatsApp bot with auto-reload
+```
 
-With GPT-3.5 Turbo (change in `.env`):
-- Average message: ~$0.001
-- Much cheaper but less accurate personality
+## 🛑 Stopping the Server
 
-## 🛑 Stopping the Bot
+Press `Ctrl + C` in the terminal where the server is running.
 
-- Press `Ctrl + C` in the terminal
-- The bot will disconnect gracefully
-- To restart: `npm start`
+## 🚀 Future Enhancements
 
-## 📝 Example Personality Prompt
+- [ ] Add user authentication
+- [ ] Persistent chat history (database integration)
+- [ ] Multiple chat rooms/sessions
+- [ ] Voice message support
+- [ ] Dark/light theme toggle
+- [ ] Export chat history
 
-Here's a detailed example to help you create yours:
+## 📄 License
 
-\`\`\`javascript
-**Basic Information:**
-- Name: Sarah
-- Age: 23
-- Location: New York
-- Occupation: Marketing Manager at a tech startup
+ISC
 
-**Personality Traits:**
+## 👨‍💻 Author
+
+**Gagan Kumar**
+- 🏢 Oracle MTS
+- 🎓 NIT Warangal
+- 📧 [GitHub](https://github.com/gagancoder123/gaganaibot.git)
+
+---
+
+Made with ❤️ using Cohere AI • Chat with your friendly AI assistant anytime!
 - Very energetic and enthusiastic
 - Uses lots of emojis especially 💕 ✨ 🔥
 - Types in lowercase mostly

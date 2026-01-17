@@ -1,0 +1,31 @@
+{
+  "name": "whatsapp-ai-bot",
+  "version": "1.0.0",
+  "description": "AI-enabled WhatsApp bot that responds like you when you're not available",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "start:whatsapp": "node index.js",
+    "dev": "node --watch server.js",
+    "dev:whatsapp": "node --watch index.js",
+    "clean": "rmdir /s /q auth_info_baileys || echo 'No session to delete'"
+  },
+  "keywords": [
+    "whatsapp",
+    "bot",
+    "ai",
+    "chatbot"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@whiskeysockets/baileys": "^6.7.8",
+    "body-parser": "^1.20.4",
+    "cohere-ai": "^7.20.0",
+    "dotenv": "^16.4.1",
+    "express": "^4.22.1",
+    "pino": "^8.19.0",
+    "qrcode-terminal": "^0.12.0"
+  }
+}
