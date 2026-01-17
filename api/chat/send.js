@@ -43,7 +43,8 @@ export default async function handler(req, res) {
       aiMessage: { text: reply }
     });
   } catch (error) {
-    console.error('Error in /api/chat/send:', error);
+    console.error('❌ Error in /api/chat/send:', error.message || error);
+    console.error('Stack:', error.stack);
     // Gracefully return a fallback message to avoid UI errors
     return res.status(200).json({
       aiMessage: { text: "Sorry yaar, thoda issue aa gaya server pe. Thodi der baad try karna! 🙈" }

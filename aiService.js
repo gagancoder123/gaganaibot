@@ -1,11 +1,21 @@
 import { CohereClientV2 } from 'cohere-ai';
 import dotenv from 'dotenv';
 
-dotenv.config();
+// Only load dotenv on local/dev, not on Vercel
+if (process.env.NODE_ENV !== 'production') {
+    dotenv.config();
+}
+
+// Verify API key is available
+const apiKey = process.env.COHERE_API_KEY;
+if (!apiKey) {
+    console.error('❌ COHERE_API_KEY is missing!');
+    console.error('Set it in .env (local) or Vercel Environment Variables (production)');
+}
 
 // Initialize Cohere client
 const cohere = new CohereClientV2({
-    token: process.env.COHERE_API_KEY
+    token: apiKey
 });
 
 // 🎯 YOUR PERSONALITY PROMPT
