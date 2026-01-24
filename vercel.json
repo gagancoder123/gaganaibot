@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "buildCommand": "echo 'Build complete'",
   "rewrites": [
     { "source": "/", "destination": "/public/index.html" },
     { "source": "/styles.css", "destination": "/public/styles.css" },
@@ -8,8 +9,14 @@
   ],
   "functions": {
     "api/**/*.js": {
-      "maxDuration": 10,
-      "memory": 1024
+      "maxDuration": 30,
+      "memory": 3008,
+      "runtime": "nodejs20.x"
     }
-  }
+  },
+  "env": [
+    "GROK_API_KEY",
+    "GROK_MODEL",
+    "FALLBACK_MESSAGE"
+  ]
 }

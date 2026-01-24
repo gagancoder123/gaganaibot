@@ -1,0 +1,7 @@
+# Vercel Configuration
+# This file helps Vercel understand how to build and deploy your project
+
+{
+  "buildCommand": "echo 'Skipping build'",
+  "nodeVersion": "20.x"
+}

@@ -1,0 +1,29 @@
+# Version control
+.git
+.gitignore
+
+# Development
+.env.example
+README.md
+node_modules
+
+# WhatsApp auth files
+.wwebjs_auth
+.wwebjs_cache
+
+# Local testing
+.DS_Store
+.env.local
+
+# Build artifacts
+dist/
+build/
+
+# IDE
+.vscode
+.idea
+*.swp
+
+# Unnecessary files for Vercel
+server.js
+index.js
