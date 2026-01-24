@@ -102,12 +102,12 @@ app.listen(PORT, () => {
     console.log('='.repeat(60));
     
     // Check API key
-    if (!process.env.COHERE_API_KEY || process.env.COHERE_API_KEY === 'your_cohere_api_key_here') {
-        console.log('\n⚠️  WARNING: COHERE_API_KEY is not configured!');
+    if (!process.env.GROK_API_KEY || process.env.GROK_API_KEY === 'your_grok_api_key_here') {
+        console.log('\n⚠️  WARNING: GROK_API_KEY is not configured!');
         console.log('⚠️  The bot will only return fallback messages.');
         console.log('⚠️  Please set your API key in the .env file\n');
     } else {
-        console.log('\n✅ Cohere API Key: Configured');
-        console.log(`\u2705 Model: ${process.env.COHERE_MODEL || 'command-r-08-2024'}\n`);
+        console.log('\n✅ Grok API Key: Configured');
+        console.log(`✅ Model: ${process.env.GROK_MODEL || 'mixtral-8x7b-32768'}\n`);
     }
 });

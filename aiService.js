@@ -1,4 +1,4 @@
-import { CohereClientV2 } from 'cohere-ai';
+import Groq from 'groq-sdk';
 import dotenv from 'dotenv';
 
 // Only load dotenv on local/dev, not on Vercel
@@ -7,15 +7,15 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // Verify API key is available
-const apiKey = process.env.COHERE_API_KEY;
+const apiKey = process.env.GROK_API_KEY;
 if (!apiKey) {
-    console.error('❌ COHERE_API_KEY is missing!');
+    console.error('❌ GROK_API_KEY is missing!');
     console.error('Set it in .env (local) or Vercel Environment Variables (production)');
 }
 
-// Initialize Cohere client
-const cohere = new CohereClientV2({
-    token: apiKey
+// Initialize Grok client
+const client = new Groq({
+    apiKey: apiKey
 });
 
 // 🎯 YOUR PERSONALITY PROMPT
@@ -112,9 +112,9 @@ export async function getAIResponse(messageContent, senderName, isGroup) {
             ? `In a group chat, ${senderName} says: "${messageContent}". Respond briefly as you would.`
             : `${senderName} messages you: "${messageContent}". Respond as you would.`;
         
-        // Call Cohere API
-        const response = await cohere.chat({
-            model: process.env.COHERE_MODEL || 'command-r-08-2024',
+        // Call Grok API using native SDK
+        const response = await client.chat.completions.create({
+            model: process.env.GROK_MODEL || 'mixtral-8x7b-32768',
             messages: [
                 {
                     role: 'system',
@@ -126,10 +126,10 @@ export async function getAIResponse(messageContent, senderName, isGroup) {
                 }
             ],
             temperature: 0.9,
-            maxTokens: 150
+            max_tokens: 150
         });
         
-        const reply = response.message.content[0].text.trim();
+        const reply = response.choices[0].message.content.trim();
         return reply;
         
     } catch (error) {
@@ -138,7 +138,7 @@ export async function getAIResponse(messageContent, senderName, isGroup) {
         
         // Check for common issues
         if (error.message.includes('API key') || error.message.includes('token')) {
-            console.error('\n⚠️  COHERE_API_KEY is missing or invalid!');
+            console.error('\n⚠️  GROK_API_KEY is missing or invalid!');
             console.error('Please check your .env file\n');
         }
         

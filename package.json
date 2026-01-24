@@ -22,9 +22,9 @@
   "dependencies": {
     "@whiskeysockets/baileys": "^6.7.8",
     "body-parser": "^1.20.4",
-    "cohere-ai": "^7.20.0",
     "dotenv": "^16.4.1",
     "express": "^4.22.1",
+    "groq-sdk": "^0.7.0",
     "pino": "^8.19.0",
     "qrcode-terminal": "^0.12.0"
   }
