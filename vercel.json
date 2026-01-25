@@ -24,6 +24,10 @@
       "dest": "/public/app.js"
     },
     {
+      "src": "/dp.webp",
+      "dest": "/public/dp.webp"
+    },
+    {
       "src": "/(.*)",
       "dest": "/public/index.html"
     }
