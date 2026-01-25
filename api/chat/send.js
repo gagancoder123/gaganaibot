@@ -1,4 +1,4 @@
-import { getAIResponse } from '../../../aiService.js';
+import { getAIResponse } from '../../aiService.js';
 
 // Helper to read and parse JSON body for Vercel Node functions
 async function parseJsonBody(req) {
