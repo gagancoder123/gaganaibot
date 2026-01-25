@@ -41,7 +41,7 @@ export default async function handler(req, res) {
 
   try {
     // Verify environment variables
-    if (!process.env.GROK_API_KEY) {
+    if (!process.env.GROQ_API_KEY) {
       console.error(`[${requestId}] ❌ GROK_API_KEY is not set in environment variables`);
       return res.status(500).json({ 
         error: 'API Key not configured',

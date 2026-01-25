@@ -132,7 +132,7 @@ export async function getAIResponse(messageContent, senderName, isGroup) {
         
         // Call Grok API using native SDK
         const response = await client.chat.completions.create({
-            model: process.env.GROK_MODEL || 'mixtral-8x7b-32768',
+            model: process.env.GROQ_MODEL || 'mixtral-8x7b-32768',
             messages: [
                 {
                     role: 'system',
