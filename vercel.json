@@ -1,11 +1,5 @@
 {
   "version": 2,
-  "buildCommand": "echo 'Deploying API routes and static files'",
-  "functions": {
-    "api/**/*.js": {
-      "runtime": "@vercel/node@3"
-    }
-  },
   "routes": [
     {
       "src": "/api/(.*)",
@@ -23,6 +17,5 @@
       "src": "/(.*)",
       "dest": "/public/index.html"
     }
-  ],
-  "public": true
+  ]
 }
