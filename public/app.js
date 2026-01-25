@@ -82,8 +82,11 @@ async function sendMessage() {
     scrollToBottom();
 
     try {
-        // Send to server
-        const response = await fetch('/api/chat/send', {
+        // Send to server - use absolute URL
+        const apiUrl = window.location.origin + '/api/chat/send';
+        console.log('📤 Sending message to:', apiUrl);
+        
+        const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -95,7 +98,9 @@ async function sendMessage() {
         });
 
         if (!response.ok) {
-            throw new Error('Failed to send message');
+            const errorText = await response.text();
+            console.error(`API error (${response.status}):`, errorText);
+            throw new Error(`API responded with ${response.status}: ${response.statusText}`);
         }
 
         const data = await response.json();
