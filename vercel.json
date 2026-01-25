@@ -1,11 +1,20 @@
 {
   "version": 2,
-  "buildCommand": "echo 'Build complete'",
-  "rewrites": [
-    { "source": "/", "destination": "/public/index.html" },
-    { "source": "/styles.css", "destination": "/public/styles.css" },
-    { "source": "/app.js", "destination": "/public/app.js" },
-    { "source": "/dp.webp", "destination": "/public/dp.webp" }
+  "builds": [
+    {
+      "src": "public/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/public/$1"
+    }
   ],
   "functions": {
     "api/**/*.js": {
