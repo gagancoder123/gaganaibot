@@ -7,9 +7,9 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // Verify API key is available
-const apiKey = process.env.GROK_API_KEY;
+const apiKey = process.env.GROQ_API_KEY;
 if (!apiKey) {
-    console.error('❌ GROK_API_KEY is missing!');
+    console.error('❌ GROQ_API_KEY is missing!');
     console.error('Set it in .env (local) or Vercel Environment Variables (production)');
 }
 
