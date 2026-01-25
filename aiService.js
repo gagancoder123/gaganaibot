@@ -23,10 +23,20 @@ if (apiKey) {
     console.error('Set it in .env (local) or Vercel Environment Variables (production)');
 }
 
-// Initialize Groq client
-const client = new Groq({
-    apiKey: apiKey
-});
+// Initialize Groq client (lazy initialization to handle undefined keys at build time)
+let client;
+
+function getGroqClient() {
+    if (!client) {
+        if (!process.env.GROQ_API_KEY) {
+            throw new Error('GROQ_API_KEY is not set in environment variables');
+        }
+        client = new Groq({
+            apiKey: process.env.GROQ_API_KEY
+        });
+    }
+    return client;
+}
 
 console.log('✅ Groq client initialized');
 
@@ -136,6 +146,9 @@ Your goal is to represent Gagan accurately when he is unavailable — responding
  */
 export async function getAIResponse(messageContent, senderName, isGroup) {
     try {
+        // Get Groq client (will initialize on first call with actual API key)
+        const groqClient = getGroqClient();
+        
         // Prepare the conversation context
         const systemMessage = PERSONALITY_PROMPT;
         const userMessage = isGroup 
@@ -143,7 +156,7 @@ export async function getAIResponse(messageContent, senderName, isGroup) {
             : `${senderName} messages you: "${messageContent}". Respond as you would.`;
         
         // Call Grok API using native SDK
-        const response = await client.chat.completions.create({
+        const response = await groqClient.chat.completions.create({
             model: process.env.GROQ_MODEL || 'mixtral-8x7b-32768',
             messages: [
                 {
