@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "buildCommand": "echo 'Deploying API routes and static files'",
   "builds": [
     {
       "src": "api/**/*.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "public/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -14,10 +17,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/public/$1"
+      "dest": "/public/index.html"
     }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  }
+  ]
 }
