@@ -53,7 +53,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Verify environment variables
+    // Verify environment variables (only GROQ)
     const hasKey = !!process.env.GROQ_API_KEY;
     if (hasKey) {
       const key = process.env.GROQ_API_KEY;
