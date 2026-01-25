@@ -8,15 +8,27 @@ if (process.env.NODE_ENV !== 'production') {
 
 // Verify API key is available
 const apiKey = process.env.GROQ_API_KEY;
-if (!apiKey) {
+
+// Debug logging for environment variables
+console.log('🔍 Environment Check:');
+console.log('  - NODE_ENV:', process.env.NODE_ENV || 'not set');
+console.log('  - GROQ_API_KEY exists:', !!apiKey);
+if (apiKey) {
+    // Show first 7 and last 4 characters for verification
+    const maskedKey = `${apiKey.substring(0, 7)}...${apiKey.substring(apiKey.length - 4)}`;
+    console.log('  - GROQ_API_KEY (masked):', maskedKey);
+    console.log('  - API Key length:', apiKey.length);
+} else {
     console.error('❌ GROQ_API_KEY is missing!');
     console.error('Set it in .env (local) or Vercel Environment Variables (production)');
 }
 
-// Initialize Grok client
+// Initialize Groq client
 const client = new Groq({
     apiKey: apiKey
 });
+
+console.log('✅ Groq client initialized');
 
 // 🎯 YOUR PERSONALITY PROMPT
 // Edit this section with detailed information about yourself!
