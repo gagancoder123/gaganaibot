@@ -54,6 +54,15 @@ export default async function handler(req, res) {
 
   try {
     // Verify environment variables
+    const hasKey = !!process.env.GROQ_API_KEY;
+    if (hasKey) {
+      const key = process.env.GROQ_API_KEY;
+      const maskedKey = `${key.substring(0, 7)}...${key.substring(key.length - 4)}`;
+      console.log(`[${requestId}] 🔑 GROQ_API_KEY present (masked): ${maskedKey} | length: ${key.length}`);
+    } else {
+      console.log(`[${requestId}] 🔑 GROQ_API_KEY missing`);
+    }
+
     if (!process.env.GROQ_API_KEY) {
       console.error(`[${requestId}] ❌ GROQ_API_KEY is not set in environment variables`);
       return res.status(500).json({ 
@@ -64,6 +73,7 @@ export default async function handler(req, res) {
 
     console.log(`[${requestId}] Parsing request body...`);
     const body = await parseJsonBody(req);
+    console.log(`[${requestId}] Request body parsed:`, body);
     const { message, userName } = body || {};
 
     if (!message || typeof message !== 'string') {
